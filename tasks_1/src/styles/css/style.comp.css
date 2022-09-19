@@ -6878,10 +6878,10 @@ main {
         background-color: #F0F3FB; }
         .list .notes table tr:last-child {
           border-bottom: none; }
-        .list .notes table tr[data-categogy]:hover {
+        .list .notes table tr[data-category]:hover {
           cursor: pointer;
           background-color: #E8ECEF; }
-      .list .notes table thead {
+      .list .notes table thead tr {
         background-color: #98A9BC; }
       .list .notes table th {
         color: white;
@@ -6905,7 +6905,8 @@ main {
         .list .notes table td.width-16 {
           width: 16%; }
         .list .notes table td:last-child {
-          display: flex; }
+          display: flex;
+          min-width: 110px; }
       .list .notes table .button-remove-notes {
         border: none;
         background: none;

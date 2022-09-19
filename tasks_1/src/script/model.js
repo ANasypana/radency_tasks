@@ -7,7 +7,7 @@ export class Model {
     }
 
     get dataActive() {
-        const activeNotes = this._data.filter(note => !!note.archived);
+        const activeNotes = this._data.filter(note => !note.archived);
         return [...activeNotes];
     }
 
@@ -33,16 +33,17 @@ export class Model {
     addNote(newNote) {
         this._data.push({
             ...newNote,
-            id: Date.now() + this._data.length,
+            id: (Date.now() + this._data.length).toString(),
             created: new Date(),
             dates: extractDates(newNote.description),
+            archived: false,
         })
     }
 
     editNote(id, editNote) {
         const newNotes = this._data.map(note => {
             if(note.id === id) {
-                return {...note, ...editNote};
+                return {...note, ...editNote, dates: extractDates(editNote.description)};
             }
             return {...note};
         });

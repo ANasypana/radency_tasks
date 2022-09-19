@@ -43,17 +43,19 @@ export class TableMain  extends View{
                 (d?.category === 'Idea' ? '<span class="button-category-idea">' : '<span class="button-category-thought">');
 
             tr.innerHTML = `
-                <td>${span}</td>
+                <td>${span}</td>                
                 <td class="width-16">${d?.title}</td>
                 <td class="width-16">${dateFormat(d?.created)}</td>
                 <td class="width-16">${d?.category}</td>
                 <td class="width-16">${d?.description}</td>
-                <td class="width-16">${extractDates(d?.description).join(', ')}</td>
                 <td class="width-16">
-                  ${ !d.archived && '<a class="button-edit-notes"></a>' }   
-                  ${ d.archived ? '<a class="button-unarchive-notes"></a>' : '<a class="button-archive-notes"></a>' }
-                  <a class="button-remove-notes"></a>
-                </td>            
+                    ${d?.dates.join(', ')}                   
+                </td>
+                <td class="width-16">
+                    <a class="button-edit-notes"></a>
+                    ${d.archived ? '<a class="button-unarchive-notes"></a>' : '<a class="button-archive-notes"></a>'} 
+                    <a class="button-remove-notes"></a>
+                </td>                                
             `;
 
             if(d?.id) {

@@ -1,10 +1,10 @@
 export class View {
     _data;
     _element;
-    _parentElement;
+    parentElement;
 
     constructor(parentElement) {
-        this._parentElement = parentElement;
+        this.parentElement = parentElement;
 
     }
 
@@ -17,13 +17,13 @@ export class View {
     }
 
     clear() {
-        this._parentElement.innerHTML = '';
+        this.parentElement.innerHTML = '';
     }
 
     render(data){
         this._data = data;
         this._createElement();
         this._generateMarkup();
-        this._parentElement.append(this._element);
+        this.parentElement.append(this._element);
     }
 }

@@ -247,7 +247,7 @@ main {
                     border-bottom: none;
                 }
 
-                &[data-categogy] {
+                &[data-category] {
                     &:hover {
                         cursor: pointer;
                         background-color: $color5;
@@ -257,7 +257,9 @@ main {
             }
 
             thead {
-                background-color:$color2;
+                tr {
+                    background-color:$color2;
+                }
             }
 
             th {
@@ -290,6 +292,7 @@ main {
 
                 &:last-child {
                     display: flex;
+                    min-width: 110px;
                 }
             }
 

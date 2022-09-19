@@ -63,7 +63,7 @@ export const NOTES = [
             description: 'Encourage everyone to contribute and to develop ideas, ' +
                 'including the quietest people, and discourage anyone from criticizing ideas',
             dates: [],
-            archived: false,
+            archived: true,
             created: new Date(),
         },
     ];

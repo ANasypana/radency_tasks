@@ -1,6 +1,7 @@
 export const renderTables = (
-    model, tableMain, tableArchive, list, button = null, active = true, category = ''
+    model, tableMain, tableArchive, button = null, active = true, category = ''
 ) => {
+    const list = tableMain.parentElement.closest('.list');
     const actives = model.dataActive;
     const archives = model.extractArchiveByCategory();
     const categoryArchive = model.getArchivedByCategory(category);
@@ -24,8 +25,8 @@ export const renderTables = (
     }
 }
 
-export const tablesHandler = (model, tableMain, tableArchive, button) => (event) => {
-    const list = event.target.closest('.list');
+export const tablesHandler = (model, tableMain, tableArchive, button, openFormHandler) => (event) => {
+    const list = tableMain.parentElement.closest('.list');
 
     if(event.target.classList.contains('button-edit-notes')) {
         const id = event.target.closest('tr').dataset.id;
@@ -40,14 +41,14 @@ export const tablesHandler = (model, tableMain, tableArchive, button) => (event)
             const id = event.target.closest('tr').dataset.id;
             if(id){
                 model.archiveNote(id);
-                renderTables(model, tableMain, tableArchive, list);
+                renderTables(model, tableMain, tableArchive);
 
             }
         }
 
         if(event.target.closest('th')) {
             model.archiveAll();
-            renderTables(model, tableMain, tableArchive, list, button, true);
+            renderTables(model, tableMain, tableArchive, button, true);
         }
     }
 
@@ -56,14 +57,14 @@ export const tablesHandler = (model, tableMain, tableArchive, button) => (event)
             const id = event.target.closest('tr').dataset.id;
             if(id){
                 model.archiveNote(id);
-                renderTables(model, tableMain, tableArchive, list, button, tableMain.active, tableMain.category);
+                renderTables(model, tableMain, tableArchive, button, true);
 
             }
         }
 
         if(event.target.closest('th')) {
             model.unArchiveAll(tableMain.category);
-            renderTables(model, tableMain, tableArchive, list, button, true);
+            renderTables(model, tableMain, tableArchive, button, true);
         }
     }
 
@@ -72,14 +73,14 @@ export const tablesHandler = (model, tableMain, tableArchive, button) => (event)
             const id = event.target.closest('tr').dataset.id;
             if(id){
                 model.deleteNote(id);
-                renderTables(model, tableMain, tableArchive, list, button, tableMain.active, tableMain.category);
+                renderTables(model, tableMain, tableArchive, button, tableMain.active, tableMain.category);
 
             }
         }
 
         if(event.target.closest('th')) {
             model.deleteAll(tableMain.active, tableMain.category);
-            renderTables(model, tableMain, tableArchive, list, button, tableMain.active, tableMain.category);
+            renderTables(model, tableMain, tableArchive, button, tableMain.active, tableMain.category);
         }
 
     }
@@ -126,8 +127,32 @@ export const tablesHandler = (model, tableMain, tableArchive, button) => (event)
 
 };
 
-export const openFormHandler = (data) => {
+export const submitHandler = (model, tableMain, tableArchive) => (newNote) => {
+    if(!!newNote.id){
+        model.editNote(newNote.id, newNote)
+    }else {
+        model.addNote(newNote);
+    }
 
-}
+    renderTables(model, tableMain, tableArchive);
+};
+
+export const switchArchiveHandler = (model, tableMain, tableArchive) => (id) => {
+    model.archiveNote(id);
+    renderTables(model, tableMain, tableArchive);
+};
+
+export const buildForm = (form, model, tableMain, tableArchive) => data => {
+    if(form.parentElement.classList.contains('empty')){
+        form.parentElement.classList.remove('empty')
+    }
+    form.clear();
+    form.render(data);
+    form.addSubmitForm(submitHandler(model, tableMain, tableArchive));
+    form.addArchiveNote(switchArchiveHandler(model, tableMain, tableArchive));
+};
+
+
+
 
 
