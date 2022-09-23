@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { SummaryTableRow } from './SummaryTableRow';
-import { CategoryEnum, ISummary } from '../../../types';
+import { ISummary } from '../../../types';
 
 interface IProps {
     summary: ISummary[];
-    showArchives: (category: CategoryEnum) => () => void;
+    showArchives: (category: string) => () => void;
 }
 
 export const SummaryTable:FC<IProps> = (props) => {

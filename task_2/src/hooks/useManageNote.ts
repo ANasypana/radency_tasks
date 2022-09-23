@@ -19,6 +19,7 @@ export const useManageNote = () => {
         } else {
             dispatch(notesActions.addNoteAsync(data));
         }
+        dispatch(notesActions.selectNote(null));
     };
 
     const removeNote = () => {

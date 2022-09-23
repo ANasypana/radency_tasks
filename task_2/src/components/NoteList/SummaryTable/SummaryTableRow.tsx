@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import cn from 'classnames';
 
-import { CategoryEnum, ISummary } from '../../../types';
+import { ISummary } from '../../../types';
 
 interface IProps extends ISummary {
     clickHandler: () => void;
@@ -13,9 +13,9 @@ export const SummaryTableRow:FC<IProps> = (props) => {
     } = props;
 
     const styles = cn({
-        'button-category-task':    category === CategoryEnum.TASK,
-        'button-category-idea':    category === CategoryEnum.IDEA,
-        'button-category-thought': category === CategoryEnum.THOUGHT,
+        'button-category-task':    category === 'Task',
+        'button-category-idea':    category === 'Idea',
+        'button-category-thought': category === 'Random Thought',
     });
 
     return (

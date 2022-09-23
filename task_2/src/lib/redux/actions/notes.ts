@@ -2,9 +2,9 @@ import waait from 'waait';
 import { notesTypes } from '../types';
 import { NOTES } from '../../../data/config';
 import { AppThunk } from '../init/store';
-import { INoteModel, CategoryEnum, INoteParams } from '../../../types';
+import { INoteModel, INoteParams } from '../../../types';
 import { messageActions } from './message';
-import { INoteFormShape } from '../../../components/forms/types';
+import { INote, INoteFormShape } from '../../../components/forms/types';
 
 
 export const notesActions = Object.freeze({
@@ -48,9 +48,9 @@ export const notesActions = Object.freeze({
             payload: newNote,
         };
     },
-    updateNote: (newNote: INoteFormShape) => {
+    updateNote: (newNote: INote) => {
         return {
-            type:    notesTypes.CREATE_NONE,
+            type:    notesTypes.UPDATE_NOTE,
             payload: newNote,
         };
     },
@@ -62,11 +62,11 @@ export const notesActions = Object.freeze({
     },
     archiveNotes: (params: INoteParams) => {
         return {
-            type:    notesTypes.ARCHIVE_NOTE,
+            type:    notesTypes.ARCHIVE_NOTES,
             payload: params,
         };
     },
-    showArchivedNotesByCategory(category: CategoryEnum) {
+    showArchivedNotesByCategory(category: string) {
         return {
             type:    notesTypes.SHOW_ARCHIVED_BY_CATEGORY,
             payload: category,
@@ -116,7 +116,7 @@ export const notesActions = Object.freeze({
             dispatch(notesActions.stopLoading());
         }
     },
-    updateNoteAsync: (newNote: INoteFormShape): AppThunk => async (dispatch) => {
+    updateNoteAsync: (newNote: INote): AppThunk => async (dispatch) => {
         try {
             dispatch(notesActions.startLoading());
 

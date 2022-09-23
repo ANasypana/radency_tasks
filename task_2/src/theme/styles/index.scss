@@ -621,14 +621,10 @@ main {
     background-color: $color6;
     padding-bottom: 50px;
 
-    &.empty {
-        display: none;
-    }
-
     .head {
         display: flex;
         align-items: center;
-        justify-content: end;
+        justify-content: space-between;
         position: relative;
         height: 53px;
         margin-bottom: 27px;
@@ -643,7 +639,7 @@ main {
             background-color: $color5;
         }
 
-        .button-complete-note {
+        .button-archive-note {
             font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
@@ -654,7 +650,7 @@ main {
             border: none;
             margin-left: 26px;
 
-            .completed {
+            .archived {
                 &::before {
                     content: '\f00c';
                     color: $color6;
@@ -686,12 +682,12 @@ main {
                 color: $color17;
             }
 
-            &.completed {
+            &.archived {
                 color: $color3;
             }
         }
 
-        .button-remove-task {
+        .button-close-note {
             border: none;
             background: none;
             outline: none;
@@ -855,7 +851,7 @@ main {
             }
         }
 
-        .button-archive {
+        .button-remove-note {
             background-color: $color17;
 
             &:disabled {

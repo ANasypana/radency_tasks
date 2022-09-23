@@ -1,9 +1,3 @@
-export enum CategoryEnum {
-    TASK = 'Task',
-    IDEA = 'Idea',
-    THOUGHT = 'Random Thought',
-}
-
 export interface INoteModel {
     id: string;
     archived: boolean;
@@ -11,16 +5,16 @@ export interface INoteModel {
     description: string;
     dates?: string[];
     created?: string;
-    category: CategoryEnum | null;
+    category: string;
 }
 
 export interface ISummary {
-    category: CategoryEnum;
+    category: string;
     active: number;
     archived: number;
 }
 
 export interface INoteParams {
-    category: CategoryEnum | null;
+    category: string;
     archived: boolean;
 }

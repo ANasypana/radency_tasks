@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { useNotes } from '../../hooks';
-import { TaskCard } from './TaskCard';
 import { NotesList } from '../NoteList';
+import { NoteCard } from './NoteCard';
 
 
 export const NotesManager:FC = () => {
@@ -21,7 +21,7 @@ export const NotesManager:FC = () => {
             </div>
             <div className = 'wrap'>
                 <NotesList />
-                { !isLoading && isShowCard && <TaskCard /> }
+                { !isLoading && isShowCard && <NoteCard /> }
             </div>
         </main>
     );

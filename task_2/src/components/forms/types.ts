@@ -1,9 +1,10 @@
-import { CategoryEnum } from '../../types/NoteModel';
-
 export interface INoteFormShape {
     archived: boolean;
     title: string;
     description: string;
-    category: CategoryEnum;
-    id?: string;
+    category: string;
+}
+
+export interface INote extends INoteFormShape{
+    id: string;
 }

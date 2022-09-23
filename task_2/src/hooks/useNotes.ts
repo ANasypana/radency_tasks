@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 import { getNotes } from '../lib/redux/selectors';
 import { notesActions } from '../lib/redux/actions';
 import { useAppDispatch } from '../lib/redux/init/store';
-import { INoteParams, CategoryEnum } from '../types';
+import { INoteParams } from '../types';
 
 
 export const useNotes = () => {
     const dispatch = useAppDispatch();
     const {
-        isLoading, selectedNote, showNotes, summary,
+        isLoading, selectedNote, showNotes, summary, active,
     } = useSelector(getNotes);
 
     const selectNote = (id: string) => () => dispatch(notesActions.selectNote(id));
@@ -28,7 +28,7 @@ export const useNotes = () => {
         dispatch(notesActions.archiveNotesAsync(params));
     };
 
-    const switchToArchive = (category: CategoryEnum) => () => {
+    const switchToArchive = (category: string) => () => {
         dispatch(notesActions.showArchivedNotesByCategory(category));
     };
 
@@ -40,6 +40,7 @@ export const useNotes = () => {
 
     return {
         showNotes,
+        active,
         isLoading,
         summary,
         selectNote,

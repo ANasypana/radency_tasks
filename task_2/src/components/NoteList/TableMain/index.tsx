@@ -17,7 +17,7 @@ export const MainTable:FC<IProps> = (props) => {
     const {
         notes, selectNote, archiveNotes, archiveNote, removeNotes, removeNone,
     } = props;
-    const category = notes[ 0 ].archived ? notes[ 0 ].category : null;
+    const category = notes[ 0 ].archived ? notes[ 0 ].category : '';
     const { archived } = notes[ 0 ];
 
     const styleIcon = cn({

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import cn from 'classnames';
 import { strToData } from '../../../utils/date';
-import { CategoryEnum, INoteModel } from '../../../types';
+import { INoteModel } from '../../../types';
 
 interface IProps extends INoteModel {
     editHandler: () => void;
@@ -16,9 +16,9 @@ export const MainTableRow:FC<IProps> = (props) => {
     } = props;
 
     const styleSpan = cn({
-        'button-category-task':    category === CategoryEnum.TASK,
-        'button-category-idea':    category === CategoryEnum.IDEA,
-        'button-category-thought': category === CategoryEnum.THOUGHT,
+        'button-category-task':    category === 'Task',
+        'button-category-idea':    category === 'Idea',
+        'button-category-thought': category === 'Random Thought',
     });
 
     const styleIcon = cn({

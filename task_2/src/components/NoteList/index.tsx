@@ -10,12 +10,14 @@ import { ButtonSwitch } from './ButtonSwitch';
 export const NotesList: FC = () => {
     const {
         summary, showNotes, isLoading, removeNotes, removeNone, archiveNotes,
-        archiveNote, switchToArchive, switchToActive, selectNote,
+        archiveNote, switchToArchive, switchToActive, selectNote, active,
     } = useNotes();
 
     const styles = cn(
         'list',
-        { empty: !isLoading && summary.length === 0 && showNotes.length === 0 },
+        {
+            empty: !isLoading && summary.length === 0 && active.length === 0,
+        },
     );
 
     return (
@@ -37,7 +39,8 @@ export const NotesList: FC = () => {
                         removeNotes = { removeNotes }
                         archiveNotes = { archiveNotes } />
                 }
-                { !isLoading && showNotes[ 0 ]?.archived
+                { !isLoading
+                    && (active.length > 0 && (showNotes.length === 0 || showNotes[ 0 ]?.archived))
                     && <ButtonSwitch clickHandler = { switchToActive } />
 
                 }

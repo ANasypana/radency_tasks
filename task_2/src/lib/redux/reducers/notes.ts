@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 import { notesTypes } from '../types';
-import { INoteModel, ISummary, CategoryEnum } from '../../../types';
+import { INoteModel, ISummary } from '../../../types';
 import { extractDates } from '../../../utils/date';
 
 const buildSummary = (arr: INoteModel[]) => {
@@ -22,7 +22,7 @@ const buildSummary = (arr: INoteModel[]) => {
 
 const setActive = (arr: INoteModel[]) => arr.filter((n) => !n.archived);
 
-const setArchivedByCategory = (category: CategoryEnum | null, arr: INoteModel[]) => {
+const setArchivedByCategory = (category: string, arr: INoteModel[]) => {
     return arr.filter((n) => n.category === category && n.archived);
 };
 
@@ -31,6 +31,7 @@ export interface IInitialState {
     selectedNote: null | INoteModel;
     isLoading: boolean;
     showNotes: INoteModel[];
+    active: INoteModel[];
     summary: ISummary[];
 }
 
@@ -40,6 +41,7 @@ const initialState: IInitialState = {
     isLoading:    false,
     showNotes:    new Array<INoteModel>(),
     summary:      new Array<ISummary>(),
+    active:       new Array<INoteModel>(),
 };
 
 export const newNote = {
@@ -47,7 +49,7 @@ export const newNote = {
     archived:    false,
     title:       '',
     description: '',
-    category:    null,
+    category:    '',
 };
 
 export const notesReducer = (state = initialState, action: AnyAction) => {
@@ -73,6 +75,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                 notes:     [...payload],
                 showNotes: setActive(payload),
                 summary:   buildSummary(payload),
+                active:    setActive(payload),
             };
         }
 
@@ -106,6 +109,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                     ...state,
                     notes:     [...newNotes],
                     summary:   buildSummary(newNotes),
+                    active:    setActive(newNotes),
                     showNotes: deletedNote.archived
                         ? setArchivedByCategory(deletedNote.category, newNotes)
                         : setActive(newNotes),
@@ -127,6 +131,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                 ...state,
                 notes:     [...newNotes],
                 summary:   buildSummary(newNotes),
+                active:    setActive(newNotes),
                 showNotes: payload.archived ? setActive(newNotes) : new Array<INoteModel>(),
             };
         }
@@ -149,6 +154,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                     ...state,
                     notes:     [...newNotes],
                     summary:   buildSummary(newNotes),
+                    active:    setActive(newNotes),
                     showNotes: selectNote.archived
                         ? setArchivedByCategory(selectNote.category, newNotes)
                         : setActive(newNotes),
@@ -184,6 +190,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                 ...state,
                 notes:     [...newNotes],
                 summary:   buildSummary(newNotes),
+                active:    setActive(newNotes),
                 showNotes: payload.archived ? setActive(newNotes) : new Array<INoteModel>(),
             };
         }
@@ -201,6 +208,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                 ...state,
                 notes:     [...newNotes],
                 summary:   buildSummary(newNotes),
+                active:    setActive(newNotes),
                 showNotes: setActive(newNotes),
             };
         }
@@ -213,6 +221,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                         return {
                             ...n,
                             ...payload,
+                            dates: extractDates(payload.description),
                         };
                     }
 
@@ -225,6 +234,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
                     ...state,
                     notes:     [...newNotes],
                     summary:   buildSummary(newNotes),
+                    active:    setActive(newNotes),
                     showNotes: editNote.archived
                         ? setArchivedByCategory(editNote.category, newNotes)
                         : setActive(newNotes),
@@ -240,7 +250,6 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
             return {
                 ...state,
                 showNotes: setArchivedByCategory(payload, state.notes),
-                summary:   buildSummary(state.notes),
             };
         }
 
@@ -248,7 +257,6 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
             return {
                 ...state,
                 showNotes: setActive(state.notes),
-                summary:   buildSummary(state.notes),
             };
         }
 
