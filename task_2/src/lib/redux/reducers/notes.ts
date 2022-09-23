@@ -125,7 +125,7 @@ export const notesReducer = (state = initialState, action: AnyAction) => {
             const newNotes = payload.archived
                 ? state.notes
                     .filter((n) => !(n.category === payload.category && n.archived))
-                : state.notes.filter((n) => !n.archived);
+                : state.notes.filter((n) => n.archived);
 
             return {
                 ...state,

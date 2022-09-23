@@ -25,6 +25,7 @@ export const useManageNote = () => {
     const removeNote = () => {
         if (selectedNote?.id) {
             dispatch(notesActions.deleteNoteAsync(selectedNote.id));
+            dispatch(notesActions.selectNote(null));
         }
     };
 

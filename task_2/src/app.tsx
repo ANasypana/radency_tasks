@@ -25,10 +25,10 @@ export const App: FC = () => {
             <ToastContainer newestOnTop transition = { Slide } />
             <Navigation />
             <Routes>
-                <Route path = '/' element = { <Outlet /> }>
-                    <Route path = { book.notesManager } element = { <NotesManagerPage /> } />
-                    <Route path = { book.profile } element = { <ProfilePage /> } />
+                <Route path = { book.notesManager } element = { <Outlet /> }>
+                    <Route path = '/' element = { <NotesManagerPage /> } />
                 </Route>
+                <Route path = { book.profile } element = { <ProfilePage /> } />
                 <Route
                     path = '*'
                     element = { <Navigate to = { book.notesManager } replace /> } />
