@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import '../styles/globals.css';
 import '../styles/libs/style.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from 'react-redux';
 
 //Hooks

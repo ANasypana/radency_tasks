@@ -7,13 +7,15 @@ import { INoteModel } from '../../../types';
 interface IProps {
     notes: INoteModel[];
     removeNone: (id: string) => () => void;
+    removeNones: () => void;
     selectNote: (id: string) => () => void;
     archiveNote: (id: string) => () => void;
+    archiveNotes: () => void;
 }
 
 export const MainTable:FC<IProps> = (props) => {
     const {
-        notes, selectNote, archiveNote, removeNone,
+        notes, selectNote, archiveNote, removeNone, archiveNotes, removeNones,
     } = props;
 
     const { archived } = notes[ 0 ];
@@ -41,8 +43,12 @@ export const MainTable:FC<IProps> = (props) => {
                     <th>Content</th>
                     <th>Dates</th>
                     <th>
-                        <a className =  { styleIcon }></a>
-                        <a className = 'button-remove-notes'></a>
+                        <a
+                            onClick = { archiveNotes }
+                            className =  { styleIcon }></a>
+                        <a
+                            onClick = { removeNones }
+                            className = 'button-remove-notes'></a>
                     </th>
                 </tr>
             </thead>

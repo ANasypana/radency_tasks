@@ -104,11 +104,6 @@ export const notesActions = Object.freeze({
 
             await axios.post<INoteModel>(`${path}/api/notes`, newNote);
 
-            dispatch(messageActions.setMessage({
-                message: `Note ${newNote?.title} was created`,
-                type:    'success',
-            }));
-
             const notes = await axios.get<INoteModel[]>(`${path}/api/notes`);
 
             if(notes?.data){
@@ -120,6 +115,12 @@ export const notesActions = Object.freeze({
             if(summary?.data){
                 dispatch(notesActions.setSummary(summary.data));
             }
+
+            dispatch(messageActions.setMessage({
+                message: `Note ${newNote?.title} was created`,
+                type:    'success',
+            }));
+
         } catch (error) {
             const { response }  = error as AxiosError<IErrorResponse>;
             const message = response?.data?.message || 'Something went wrong';
@@ -186,6 +187,74 @@ export const notesActions = Object.freeze({
 
             dispatch(messageActions.setMessage({
                 message: `Note ${id} was deleted`,
+                type:    'info',
+            }));
+
+        } catch (error) {
+            const { response }  = error as AxiosError<IErrorResponse>;
+            const message = response?.data?.message || 'Something went wrong';
+            dispatch(messageActions.setMessage({
+                message: message,
+                type:    'error',
+            }));
+        } finally {
+            dispatch(notesActions.stopLoading());
+        }
+    },
+    deleteNotesAsync: (arr: string[]): AppThunk => async (dispatch) => {
+        try {
+            dispatch(notesActions.startLoading());
+
+            await axios.post(`${path}/api/notes/delete`, arr);
+
+            const notes = await axios.get<INoteModel[]>(`${path}/api/notes`);
+
+            if(notes?.data){
+                dispatch(notesActions.setNotes(notes.data));
+            }
+
+            const summary = await axios.get<ISummary[]>(`${path}/api/notes/stats`);
+
+            if(summary?.data){
+                dispatch(notesActions.setSummary(summary.data));
+            }
+
+            dispatch(messageActions.setMessage({
+                message: `Notes were deleted`,
+                type:    'info',
+            }));
+
+        } catch (error) {
+            const { response }  = error as AxiosError<IErrorResponse>;
+            const message = response?.data?.message || 'Something went wrong';
+            dispatch(messageActions.setMessage({
+                message: message,
+                type:    'error',
+            }));
+        } finally {
+            dispatch(notesActions.stopLoading());
+        }
+    },
+    archiveNotesAsync: (arr: string[]): AppThunk => async (dispatch) => {
+        try {
+            dispatch(notesActions.startLoading());
+
+            await axios.post(`${path}/api/notes/archive`, arr);
+
+            const notes = await axios.get<INoteModel[]>(`${path}/api/notes`);
+
+            if(notes?.data){
+                dispatch(notesActions.setNotes(notes.data));
+            }
+
+            const summary = await axios.get<ISummary[]>(`${path}/api/notes/stats`);
+
+            if(summary?.data){
+                dispatch(notesActions.setSummary(summary.data));
+            }
+
+            dispatch(messageActions.setMessage({
+                message: `Notes were archived/unarchived`,
                 type:    'info',
             }));
 

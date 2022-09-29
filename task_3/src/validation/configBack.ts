@@ -21,3 +21,7 @@ export const schema: yup.SchemaOf<INewNoteBackShape> = yup.object().shape({
         .required(),
 });
 
+export const schemaArr: yup.SchemaOf<string[]> = yup.array();
+
+
+

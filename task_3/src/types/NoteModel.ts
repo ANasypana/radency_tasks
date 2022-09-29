@@ -22,11 +22,6 @@ export interface ISummary {
     archived: number;
 }
 
-export interface INoteParams {
-    category: string;
-    archived: boolean;
-}
-
 export interface INoteFormShape {
     archived: boolean;
     title: string;

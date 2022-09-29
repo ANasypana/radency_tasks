@@ -1,3 +1,3 @@
 export { HeaderComponent } from './header';
-export { ListOfNotesComponent } from './listNotes';
+export { ListOfNotesComponent } from './notes';
 export { ProfileComponent } from './profile';

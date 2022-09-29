@@ -1,11 +1,8 @@
-// Core
 import { useMemo } from 'react';
 import {createStore, AnyAction, Store } from 'redux';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-
-// Instruments
 import { rootReducer, AppState } from './rootReducer';
 import {
     bindMiddleware,

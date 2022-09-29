@@ -8,7 +8,7 @@ import { ButtonSwitch } from './ButtonSwitch';
 
 export const NotesList: FC = () => {
     const {
-        summary, showNotes, isLoading, removeNone,
+        summary, showNotes, isLoading, removeNone, removeNones, archiveNones,
         archiveNote, switchToArchive, switchToActive, selectNote, active,
     } = useNotes();
 
@@ -22,6 +22,8 @@ export const NotesList: FC = () => {
             }
             { !isLoading && showNotes.length > 0
                 && <MainTable
+                    removeNones = { removeNones }
+                    archiveNotes = { archiveNones }
                     notes = { showNotes }
                     removeNone = { removeNone }
                     selectNote = { selectNote }

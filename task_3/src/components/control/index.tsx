@@ -1,13 +1,13 @@
 import { FC } from 'react';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
+import { useNotes } from '../../hooks'
 
 export const ControlComponent:FC = () => {
+    const { openCard } = useNotes();
 
     return (
         <div className = 'controls'>
             <button
-                onClick = { () => console.log('Click') }
+                onClick = { openCard }
                 className = 'button-create-note'>
                 New Note
             </button>

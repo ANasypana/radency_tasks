@@ -314,6 +314,7 @@ main {
 }
 
 .button-move-active {
+  display: flex;
   background: none;
   border: none;
   color: var(--color3);
@@ -715,7 +716,7 @@ td:last-child {
 }
 
 .button-archive-note.archived::before {
-   content: '\f00c';
+   content: '\2713';
    color: var(--color6);
    background-color: var(--color3);
 
@@ -727,9 +728,9 @@ td:last-child {
  }
 
 .button-archive-note::before {
-   content: '\f14a';
+   content: '\2713';
    font-family: 'Line Awesome Free';
-   font-weight: 900;
+   font-weight: 600;
    font-size: 19px;
    display: block;
    margin-right: 12px;
@@ -750,6 +751,7 @@ td:last-child {
 }
 
 .button-close-note {
+  display: flex;
   border: none;
   background: none;
   outline: none;
@@ -758,10 +760,10 @@ td:last-child {
 }
 
 .button-close-note::before {
-   content: '\f00d';
+   content: '\2573';
    font-family: 'Line Awesome Free';
-   font-weight: 900;
-   font-size: 26px;
+   font-weight: 600;
+   font-size: 16px;
    display: block;
    color: var(--color11);
  }
@@ -904,6 +906,7 @@ button:hover {
 }
 
 .button-remove-note {
+  display: flex;
   background-color: var(--color17);
 }
 

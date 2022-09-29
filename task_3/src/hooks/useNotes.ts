@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { getNotes } from '../lib/redux/selectors';
 import { notesActions } from '../lib/redux/actions';
 import { useAppDispatch } from '../lib/redux/init/store';
+import { newNote } from '../lib/redux/reducers/notes';
 
 
 export const useNotes = () => {
@@ -11,8 +12,11 @@ export const useNotes = () => {
     } = useSelector(getNotes);
 
     const selectNote = (id: string) => () => dispatch(notesActions.getNoteAsync(id));
+    const openCard = () => dispatch(notesActions.selectNote(newNote));
 
     const removeNone = (id: string) => () => dispatch(notesActions.deleteNoteAsync(id));
+    const removeNones = () => dispatch(notesActions.deleteNotesAsync(showNotes.map(n => n.id)));
+    const archiveNones = () => dispatch(notesActions.archiveNotesAsync(showNotes.map(n => n.id)));
 
 
     const archiveNote = (id: string) => () => {
@@ -46,6 +50,9 @@ export const useNotes = () => {
         archiveNote,
         switchToArchive,
         switchToActive,
+        openCard,
+        removeNones,
+        archiveNones,
         isShowCard: !!selectedNote,
     };
 };

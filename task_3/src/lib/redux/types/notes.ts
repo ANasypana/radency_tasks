@@ -12,4 +12,6 @@ export const notesTypes = Object.freeze({
     DELETE_NOTE_ASYNC:         '[NOTES] - DELETE_NOTE_ASYNC',
     UPDATE_NOTE_ASYNC:         '[NOTES] - UPDATE_NOTE_ASYNC',
     CREATE_NONE_ASYNC:         '[NOTES] - CREATE_NONE_ASYNC',
+    DELETE_NOTES_ASYNC:        '[NOTES] - DELETE_NOTES_ASYNC',
+    ARCHIVE_NOTES_ASYNC:       '[NOTES] - ARCHIVE_NOTES_ASYNC',
 });
