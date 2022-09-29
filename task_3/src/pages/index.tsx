@@ -1,9 +1,10 @@
-import axios, { AxiosResponse } from 'axios';
 import { NextPage, GetServerSideProps } from 'next';
+import axios from 'axios';
 import { HeaderComponent, ListOfNotesComponent } from '../components';
 import { AppView } from '../views/app';
-import { INoteModel } from '../types';
-
+import {INoteModel, ISummary} from '../types';
+import { initialDispatcher } from '../lib/redux/init/intialDispatcher';
+import { initializeStore } from '../lib/redux/init/store';
 
 
 interface IProps {
@@ -11,41 +12,34 @@ interface IProps {
 }
 
 
-const Home:NextPage<IProps> = ({ notes }) => {
+const Home:NextPage<IProps> = () => {
 
     return (
         <AppView
             header = { <HeaderComponent /> }
             content = { <ListOfNotesComponent /> }
         />
-    )
+    );
 };
 
 export const getServerSideProps:GetServerSideProps = async (context) => {
-    try {
-        const newNota =  {
-                title:       "Add new note Feature",
-                category:    "Idea",
-                description: "Clearly define the problem that you want to solve 06/10/2022",
-                archived:    false,
-
-            };
-        const res = await axios.post(`http://${context?.req?.headers?.host}/api/notes/`, newNota);
-        console.log(res?.data)
+    const notes = await axios.get<INoteModel[]>(`http://${context?.req?.headers?.host}/api/notes`);
+    const summary  = await axios.get<ISummary[]>(`http://${context?.req?.headers?.host}/api/notes/stats`);
+    if(!!notes.data && !!summary.data) {
+        const { store } = await initialDispatcher(notes.data, summary.data, initializeStore());
+        const initialReduxState = store.getState();
         return {
             props: {
-                notes: new Array<INoteModel>(),
+                initialReduxState
             }
-        }
-    }catch (err){
-        console.log(err)
-        return {
-            props: {
-                notes: new Array<INoteModel>(),
-            }
-        }
-    }
+        };
+    };
 
+    return {
+        props: {
+
+        }
+    };
 
 };
 

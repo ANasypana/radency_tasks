@@ -8,6 +8,6 @@ export const ErrorPage:NextPage = () => {
             title='Unknown client Error.'
         />
     );
-}
+};
 
 export default ErrorPage;

@@ -4,7 +4,7 @@ import util from 'util';
 import path from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { schema } from '../../../../validation/configBack';
-import { ISummary, INoteModel } from '../../../../types'
+import { ISummary, INoteModel } from '../../../../types';
 import { extractDates } from '../../../../halpers/date';
 
 
@@ -32,7 +32,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json(summary);
 
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with extracting data';
+            res.status(400).json({message});
         }
     }else if(req.method === 'GET' && req.query.slug !== 'stats'){
         try {
@@ -47,7 +49,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json(note);
 
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with extracting data';
+            res.status(400).json({message});
         }
 
     } else if(req.method === 'DELETE'){
@@ -63,10 +67,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             await writeFile(filePath, JSON.stringify(result), 'utf-8');
 
-            res.status(204);
+            res.status(202).json('note was deleted');
 
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with removing data';
+            res.status(400).json({message});
         }
 
     } else if(req.method === 'POST' || req.method === 'PATCH') {
@@ -94,9 +100,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             res.status(201).json(updatedNota);
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with updating data';
+            res.status(400).json({message});
         }
     }
-}
+};
 
 export default handler;

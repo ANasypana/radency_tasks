@@ -18,7 +18,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(200).json(JSON.parse(data));
 
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with extracting data';
+
+            res.status(400).json({message});
         }
     }else if(req.method === 'POST') {
         try {
@@ -39,10 +42,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
             res.status(201).json(newNote);
         }catch (err) {
-            res.status(400).json(err.message);
+            const error = err as Error;
+            const message = error.message || 'Something went wrong with adding data';
+            res.status(400).json({ message });
         }
     }
-
-}
+};
 
 export default handler;

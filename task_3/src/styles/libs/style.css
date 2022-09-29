@@ -363,7 +363,6 @@ main {
 .notes {
   padding: 0 30px 0;
   max-height: 600px;
-  overflow-y: scroll;
 }
 
 table {
@@ -429,6 +428,7 @@ td:last-child {
 
 
 .button-remove-notes {
+  display: flex;
   border: none;
   background: none;
   outline: none;
@@ -451,6 +451,7 @@ td:last-child {
 }
 
 .button-archive-notes {
+  display: flex;
   border: none;
   background: none;
   outline: none;
@@ -473,6 +474,7 @@ td:last-child {
 }
 
 .button-unarchive-notes {
+  display: flex;
   border: none;
   background: none;
   outline: none;
@@ -495,6 +497,7 @@ td:last-child {
 }
 
 .button-edit-notes {
+  display: flex;
   border: none;
   background: none;
   outline: none;
